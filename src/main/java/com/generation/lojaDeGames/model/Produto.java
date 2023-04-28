@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.generation.blogpessoal.model.Tema;
+import com.generation.blogpessoal.model.Usuario;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,14 @@ public class Produto {
 	
 	@UpdateTimestamp
 	private LocalDateTime data;
+	
+	@ManyToOne //colocar primeiro relacionamento
+	@JsonIgnoreProperties("produto") //colocar depois para evitar recursividade 
+	private Categoria categoria; //linkar a tabela e depois fazer getters and setters
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
 
 
 	public Long getId() {
@@ -72,6 +82,26 @@ public class Produto {
 
 	public void setData(LocalDateTime data) {
 		this.data = data;
+	}
+
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
